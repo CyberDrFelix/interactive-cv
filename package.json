@@ -3,7 +3,7 @@
   "name": "interactive-cv",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://felixburcea.github.io/interactive-cv",
+  "homepage": "https://cyberdrfelix.github.io/interactive-cv",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
