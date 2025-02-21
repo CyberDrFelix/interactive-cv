@@ -1,4 +1,4 @@
-import InteractiveCV from './components/InteractiveCV'
+import InteractiveCV from './components/InteractiveCV.jsx'  // Added .jsx extension
 
 function App() {
   return (
