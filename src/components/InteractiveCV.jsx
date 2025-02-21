@@ -1,6 +1,15 @@
+// src/components/InteractiveCV.jsx
 import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { BookOpen, BriefcaseIcon, GraduationCap, Users, Award, Code } from 'lucide-react';
+import { BookOpen, Briefcase, GraduationCap, Users, Award, Code } from 'lucide-react';
+
+const Card = ({ children, className, onClick }) => (
+  <div 
+    className={`p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ${className}`}
+    onClick={onClick}
+  >
+    {children}
+  </div>
+);
 
 const InteractiveCV = () => {
   const [activeSection, setActiveSection] = useState(null);
@@ -35,7 +44,7 @@ const InteractiveCV = () => {
     },
     shiftingPaths: {
       title: "Shifting Paths (2011-2018)",
-      icon: <BriefcaseIcon className="w-8 h-8" />,
+      icon: <Briefcase className="w-8 h-8" />,
       color: "bg-green-100",
       details: [
         {
@@ -151,7 +160,7 @@ const InteractiveCV = () => {
         {Object.entries(sections).map(([key, section]) => (
           <Card 
             key={key}
-            className={`cursor-pointer transition-all duration-300 ${
+            className={`cursor-pointer ${
               activeSection === key ? 'ring-2 ring-blue-500' : ''
             } ${section.color}`}
             onClick={() => {
@@ -159,10 +168,10 @@ const InteractiveCV = () => {
               setActiveDetail(null);
             }}
           >
-            <CardContent className="p-6 flex flex-col items-center text-center">
+            <div className="flex flex-col items-center text-center">
               {section.icon}
               <h2 className="text-lg font-semibold mt-4">{section.title}</h2>
-            </CardContent>
+            </div>
           </Card>
         ))}
       </div>
@@ -175,27 +184,25 @@ const InteractiveCV = () => {
             {sections[activeSection].details.map((detail, index) => (
               <Card 
                 key={index}
-                className={`cursor-pointer transition-all duration-300 ${
+                className={`cursor-pointer ${
                   activeDetail === index ? 'ring-2 ring-blue-500' : ''
                 }`}
                 onClick={() => setActiveDetail(activeDetail === index ? null : index)}
               >
-                <CardContent className="p-6">
-                  <h4 className="text-xl font-semibold">{detail.title}</h4>
-                  {detail.org && <p className="text-gray-600">{detail.org}</p>}
-                  {detail.period && <p className="text-gray-500 text-sm">{detail.period}</p>}
-                  
-                  {activeDetail === index && (
-                    <ul className="mt-4 space-y-2">
-                      {detail.highlights.map((highlight, i) => (
-                        <li key={i} className="flex items-start">
-                          <Award className="w-4 h-4 mr-2 mt-1 flex-shrink-0" />
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </CardContent>
+                <h4 className="text-xl font-semibold">{detail.title}</h4>
+                {detail.org && <p className="text-gray-600">{detail.org}</p>}
+                {detail.period && <p className="text-gray-500 text-sm">{detail.period}</p>}
+                
+                {activeDetail === index && (
+                  <ul className="mt-4 space-y-2">
+                    {detail.highlights.map((highlight, i) => (
+                      <li key={i} className="flex items-start">
+                        <Award className="w-4 h-4 mr-2 mt-1 flex-shrink-0" />
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </Card>
             ))}
           </div>
